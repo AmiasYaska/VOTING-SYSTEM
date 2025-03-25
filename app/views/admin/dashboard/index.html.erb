@@ -1,0 +1,35 @@
+<h2 class="text-2xl font-semibold text-green-700 mb-6">Admin Dashboard</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+  <div class="p-4 bg-white rounded-lg shadow-md">
+    <h3 class="text-lg font-medium text-green-700">Total Positions</h3>
+    <p class="text-2xl font-bold"><%= @total_positions %></p>
+  </div>
+  <div class="p-4 bg-white rounded-lg shadow-md">
+    <h3 class="text-lg font-medium text-green-700">Total Candidates</h3>
+    <p class="text-2xl font-bold"><%= @total_candidates %></p>
+  </div>
+  <div class="p-4 bg-white rounded-lg shadow-md">
+    <h3 class="text-lg font-medium text-green-700">Open Positions</h3>
+    <p class="text-2xl font-bold"><%= @open_positions %></p>
+  </div>
+  <div class="p-4 bg-white rounded-lg shadow-md">
+    <h3 class="text-lg font-medium text-green-700">Total Users</h3>
+    <p class="text-2xl font-bold"><%= @total_users %></p>
+  </div>
+  <div class="p-4 bg-white rounded-lg shadow-md">
+    <h3 class="text-lg font-medium text-green-700">Users Voted</h3>
+    <p class="text-2xl font-bold"><%= @users_voted %></p>
+  </div>
+  <div class="p-4 bg-white rounded-lg shadow-md">
+    <h3 class="text-lg font-medium text-green-700">Users Not Voted</h3>
+    <p class="text-2xl font-bold"><%= @users_not_voted %></p>
+  </div>
+</div>
+
+<div class="flex flex-wrap gap-4">
+  <%= link_to "Manage Users", admin_users_path, class: "px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600" %>
+  <%= link_to "Manage Positions", admin_positions_path, class: "px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600" %>
+  <%= link_to "Manage Candidates", admin_candidates_path, class: "px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600" %>
+  <%= link_to "View Results", admin_results_path, class: "px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600" %>
+</div>
