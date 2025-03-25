@@ -1,0 +1,29 @@
+<h2 class="text-2xl font-semibold text-green-700 mb-6">Review Your Votes</h2>
+
+<div class="space-y-6">
+  <% @positions.each do |position| %>
+    <div class="p-4 bg-white rounded-lg shadow-md">
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-lg font-medium text-green-700"><%= position.name %></h3>
+        <%= link_to "Edit", position_path(position), class: "text-blue-500 hover:underline" %>
+      </div>
+      
+      <% user_votes_for_position = @user_votes[position.id] || [] %>
+      <% if user_votes_for_position.any? %>
+        <ul class="list-disc pl-5">
+          <% user_votes_for_position.each do |vote| %>
+            <li class="text-gray-700"><%= vote.candidate.name %> (<%= vote.candidate.qualification %>)</li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="text-gray-500 italic">No candidates selected for this position.</p>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<div class="mt-8">
+  <%= form_with url: submit_votes_path, method: :post, local: true do %>
+    <%= submit_tag "Submit Votes", class: "px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600" %>
+  <% end %>
+</div>

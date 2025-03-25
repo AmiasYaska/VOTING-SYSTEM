@@ -9,6 +9,10 @@ Rails.application.routes.draw do
       post "vote"
     end
   end
+
+  get "summary", to: "positions#summary", as: :summary
+  post "submit_votes", to: "positions#submit_votes", as: :submit_votes
+  
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

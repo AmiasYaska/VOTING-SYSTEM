@@ -1,6 +1,6 @@
 class PositionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_voting_status, only: [:index, :show, :vote]
+  before_action :check_voting_status, only: [:index, :show, :vote, :summary]
 
   def index
     @position = Position.where(voting_open: true).order(:priority).first
@@ -52,13 +52,28 @@ class PositionsController < ApplicationController
       end
     end
 
-    # Redirect to the next position or a summary page
+    # Redirect to the next position or the summary page
     next_position = Position.where(voting_open: true).where("priority > ?", @position.priority).order(:priority).first
     if next_position
       redirect_to position_path(next_position), notice: "Your vote has been saved."
     else
-      redirect_to root_path, notice: "You have completed voting for all positions. Please submit your votes."
+      redirect_to summary_path, notice: "You have completed voting for all positions. Please review and submit your votes."
     end
+  end
+
+  def summary
+    @positions = Position.where(voting_open: true).order(:priority)
+    @user_votes = current_user.votes.where(status: "draft").group_by(&:position_id)
+  end
+
+  def submit_votes
+    # Update all draft votes to submitted
+    current_user.votes.where(status: "draft").update_all(status: "submitted")
+    
+    # Mark the user as having voted
+    current_user.update!(has_voted: true)
+
+    redirect_to root_path, notice: "Thank you for voting! Your votes have been submitted."
   end
 
   private
