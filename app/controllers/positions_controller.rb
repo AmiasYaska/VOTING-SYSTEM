@@ -22,7 +22,7 @@ class PositionsController < ApplicationController
 
   def vote
     @position = Position.find(params[:id])
-    selected_candidate_ids = params[:candidate_ids] || []
+    selected_candidate_ids = Array(params[:candidate_ids])
 
     # Validate the number of selections for multi-winner positions
     if selected_candidate_ids.count > @position.max_winners
@@ -30,16 +30,26 @@ class PositionsController < ApplicationController
       return
     end
 
+    # Validate that selected candidate IDs belong to this position
+    valid_candidate_ids = @position.candidates.pluck(:id).map(&:to_s)
+    invalid_ids = selected_candidate_ids - valid_candidate_ids
+    if invalid_ids.any?
+      redirect_to position_path(@position), alert: "Invalid candidate selection."
+      return
+    end
+
     # Delete existing draft votes for this position
     current_user.votes.where(position: @position, status: "draft").destroy_all
 
-    # Create new draft votes
-    selected_candidate_ids.each do |candidate_id|
-      current_user.votes.create!(
-        candidate_id: candidate_id,
-        position: @position,
-        status: "draft"
-      )
+    # Create new draft votes only if candidates were selected
+    if selected_candidate_ids.any?
+      selected_candidate_ids.each do |candidate_id|
+        current_user.votes.create!(
+          candidate_id: candidate_id,
+          position: @position,
+          status: "draft"
+        )
+      end
     end
 
     # Redirect to the next position or a summary page
