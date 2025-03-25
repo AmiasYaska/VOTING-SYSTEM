@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get "positions/index"
   get "positions/show"
   get "positions/vote"
-  devise_for :users
+  devise_for :users, skip: [:registrations]
 
   resources :positions, only: [:index, :show] do
     member do
