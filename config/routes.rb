@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   get "summary", to: "positions#summary", as: :summary
   post "submit_votes", to: "positions#submit_votes", as: :submit_votes
+  get "thank_you", to: "positions#thank_you", as: :thank_you
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

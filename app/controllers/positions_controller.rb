@@ -1,3 +1,4 @@
+# app/controllers/positions_controller.rb
 class PositionsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_voting_status, only: [:index, :show, :vote, :summary]
@@ -67,20 +68,27 @@ class PositionsController < ApplicationController
   end
 
   def submit_votes
-    # Update all draft votes to submitted
-    current_user.votes.where(status: "draft").update_all(status: "submitted")
+    Rails.logger.info "Starting submit_votes for user #{current_user.id}"
     
+    # Update all draft votes to submitted
+    votes_updated = current_user.votes.where(status: "draft").update_all(status: "submitted")
+    Rails.logger.info "Updated #{votes_updated} votes to submitted status"
+
     # Mark the user as having voted
     current_user.update!(has_voted: true)
+    Rails.logger.info "Set has_voted to true for user #{current_user.id}"
 
-    redirect_to root_path, notice: "Thank you for voting! Your votes have been submitted."
+    redirect_to thank_you_path, notice: "Thank you for voting! Your votes have been submitted."
+  end
+
+  def thank_you
   end
 
   private
 
   def check_voting_status
     if current_user.has_voted
-      redirect_to root_path, alert: "You have already submitted your votes."
+      redirect_to thank_you_path, alert: "You have already submitted your votes."
     end
   end
 end
