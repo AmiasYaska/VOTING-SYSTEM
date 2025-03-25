@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Welcome, <%= @user.name %>!</h1>
+    <p>You have been registered to vote in the Association election.</p>
+    <p>Your login details are:</p>
+    <ul>
+      <li>Email: <%= @user.email %></li>
+      <li>Password: <%= @user.temporary_password %></li>
+    </ul>
+    <p>Please visit <%= link_to "this link", @login_url %> to log in and cast your vote.</p>
+    <p>If you have any questions, please contact the admin at admin@association.org.</p>
+    <p>Thank you,<br/>Association Team</p>
+  </body>
+</html>
