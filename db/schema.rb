@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_25_203936) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_25_210543) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -32,6 +32,31 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_203936) do
     t.boolean "voting_open", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "solid_queue_failed_executions", force: :cascade do |t|
+    t.bigint "job_id", null: false
+    t.text "error"
+    t.datetime "created_at", null: false
+    t.index ["job_id"], name: "index_solid_queue_failed_executions_on_job_id"
+  end
+
+  create_table "solid_queue_jobs", force: :cascade do |t|
+    t.string "queue_name", null: false
+    t.string "class_name", null: false
+    t.text "arguments"
+    t.integer "priority", default: 0, null: false
+    t.datetime "run_at", null: false
+    t.integer "attempts", default: 0, null: false
+    t.datetime "locked_at"
+    t.string "locked_by"
+    t.datetime "finished_at"
+    t.text "error"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["priority"], name: "index_solid_queue_jobs_on_priority"
+    t.index ["queue_name"], name: "index_solid_queue_jobs_on_queue_name"
+    t.index ["run_at"], name: "index_solid_queue_jobs_on_run_at"
   end
 
   create_table "users", force: :cascade do |t|
@@ -63,6 +88,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_203936) do
   end
 
   add_foreign_key "candidates", "positions"
+  add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id"
   add_foreign_key "votes", "candidates"
   add_foreign_key "votes", "positions"
   add_foreign_key "votes", "users"
