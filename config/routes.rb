@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get "positions/index"
+  get "positions/show"
+  get "positions/vote"
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
