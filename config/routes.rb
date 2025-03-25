@@ -20,6 +20,19 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
+  namespace :admin do
+    get "dashboard", to: "dashboard#index", as: :dashboard
+    resources :users, only: [:index, :new, :create, :edit, :update, :destroy] do
+      collection do
+        post "import", to: "users#import", as: :import
+      end
+    end
+    resources :positions, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :candidates, only: [:index, :new, :create, :edit, :update, :destroy]
+    get "results", to: "results#index", as: :results
+    post "toggle_voting", to: "voting#toggle", as: :toggle_voting
+    post "reset_voting", to: "voting#reset", as: :reset_voting
+  end
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker

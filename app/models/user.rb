@@ -1,4 +1,3 @@
-# app/models/user.rb
 class User < ApplicationRecord
   devise :database_authenticatable, :recoverable, :rememberable, :validatable # Removed :registerable
 
