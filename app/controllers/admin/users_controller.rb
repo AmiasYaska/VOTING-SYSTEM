@@ -80,6 +80,12 @@ class Admin::UsersController < Admin::BaseController
       end
     end
   
+    def unlock
+      @user = User.find(params[:id])
+      @user.unlock_access!
+      redirect_to admin_users_path, notice: "User account has been unlocked successfully."
+    end
+    
     private
   
     def user_params

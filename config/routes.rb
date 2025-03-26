@@ -27,6 +27,9 @@ Rails.application.routes.draw do
       #   post "import", to: "users#import", as: :import
       # end
       post :import, on: :collection
+      member do
+        post :unlock # Adds POST /admin/users/:id/unlock
+      end
     end
     resources :positions, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :candidates, only: [:index, :new, :create, :edit, :update, :destroy]
