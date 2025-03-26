@@ -26,6 +26,11 @@ Devise.setup do |config|
   # with default "from" parameter.
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
 
+
+  # Lockable settings
+  config.maximum_attempts = 5 # Lock account after 5 failed attempts
+  config.unlock_strategy = :none # Disable automatic unlocking (no time-based or email-based unlocking)
+  config.lock_strategy = :failed_attempts # Lock based on failed attempts
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 
