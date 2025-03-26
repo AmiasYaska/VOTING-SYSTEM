@@ -1,0 +1,41 @@
+<h2 class="text-2xl font-semibold text-green-700 mb-6">Add New Position</h2>
+
+<%= form_with model: @position, url: admin_positions_path, local: true, class: "space-y-4" do |form| %>
+  <div>
+    <%= form.label :name, class: "block text-gray-700" %>
+    <%= form.text_field :name, class: "w-full p-2 border rounded" %>
+    <% @position.errors.full_messages_for(:name).each do |message| %>
+      <p class="text-red-500 text-sm"><%= message %></p>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :description, class: "block text-gray-700" %>
+    <%= form.text_area :description, class: "w-full p-2 border rounded" %>
+  </div>
+
+  <div>
+    <%= form.label :max_winners, class: "block text-gray-700" %>
+    <%= form.number_field :max_winners, min: 1, value: 1, class: "w-full p-2 border rounded" %>
+    <% @position.errors.full_messages_for(:max_winners).each do |message| %>
+      <p class="text-red-500 text-sm"><%= message %></p>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :priority, class: "block text-gray-700" %>
+    <%= form.number_field :priority, class: "w-full p-2 border rounded" %>
+    <% @position.errors.full_messages_for(:priority).each do |message| %>
+      <p class="text-red-500 text-sm"><%= message %></p>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :voting_open, class: "block text-gray-700" %>
+    <%= form.check_box :voting_open, class: "mr-2" %> Open for voting
+  </div>
+
+  <div>
+    <%= form.submit "Create Position", class: "px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600" %>
+  </div>
+<% end %>

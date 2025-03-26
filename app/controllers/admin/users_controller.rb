@@ -16,7 +16,7 @@ class Admin::UsersController < Admin::BaseController
       @user.password_confirmation = @user.temporary_password
   
       if @user.save
-        SendWelcomeEmailJob.perform_later(@user.id)
+        # SendWelcomeEmailJob.perform_later(@user.id)
         redirect_to admin_users_path, notice: "User created successfully. An email has been sent to the user."
       else
         render :new, status: :unprocessable_entity
@@ -36,15 +36,15 @@ class Admin::UsersController < Admin::BaseController
       end
     end
   
-    def destroy
-      @user = User.find(params[:id])
-      if @user.has_voted?
-        redirect_to admin_users_path, alert: "Cannot delete a user who has already voted."
-      else
-        @user.destroy
-        redirect_to admin_users_path, notice: "User deleted successfully."
-      end
-    end
+    # def destroy
+    #   @user = User.find(params[:id])
+    #   if @user.has_voted?
+    #     redirect_to admin_users_path, alert: "Cannot delete a user who has already voted."
+    #   else
+    #     @user.destroy
+    #     redirect_to admin_users_path, notice: "User deleted successfully."
+    #   end
+    # end
   
     def import
       if params[:file].present?
