@@ -33,7 +33,7 @@ Devise.setup do |config|
   config.lock_strategy = :failed_attempts # Lock based on failed attempts
 
 
-  config.timeout_in = 2.minutes # Default timeout for all users including admin
+  config.timeout_in = 30.minutes # Default timeout for all users including admin
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
