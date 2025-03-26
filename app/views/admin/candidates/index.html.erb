@@ -1,0 +1,33 @@
+<h2 class="text-2xl font-semibold text-green-700 mb-6">Manage Candidates</h2>
+
+<div class="mb-6">
+  <%= form_with url: admin_candidates_path, method: :get, local: true, class: "inline-block mr-4" do |form| %>
+    <%= form.label :position_id, "Filter by Position", class: "mr-2" %>
+    <%= form.select :position_id, options_from_collection_for_select(@positions, :id, :name, params[:position_id]), { include_blank: "All Positions" }, class: "p-2 border rounded", onchange: "this.form.submit()" %>
+  <% end %>
+  <%= link_to "Add New Candidate", new_admin_candidate_path(position_id: params[:position_id]), class: "px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600" %>
+</div>
+
+<table class="w-full table-auto bg-white rounded-lg shadow-md">
+  <thead>
+    <tr class="bg-gray-100">
+      <th class="p-4 text-left">Name</th>
+      <th class="p-4 text-left">Qualification</th>
+      <th class="p-4 text-left">Position</th>
+      <th class="p-4 text-left">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @candidates.each do |candidate| %>
+      <tr class="border-t">
+        <td class="p-4"><%= candidate.name %></td>
+        <td class="p-4"><%= candidate.qualification %></td>
+        <td class="p-4"><%= candidate.position.name %></td>
+        <td class="p-4">
+          <%= link_to "Edit", edit_admin_candidate_path(candidate), class: "text-blue-500 hover:underline mr-2" %>
+          <%= link_to "Delete", admin_candidate_path(candidate), data: {turbo_method: :delete, confirm: "Are you sure you want to delete this candidate?" }, class: "text-red-500 hover:underline" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
