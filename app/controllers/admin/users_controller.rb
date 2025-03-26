@@ -36,15 +36,15 @@ class Admin::UsersController < Admin::BaseController
       end
     end
   
-    # def destroy
-    #   @user = User.find(params[:id])
-    #   if @user.has_voted?
-    #     redirect_to admin_users_path, alert: "Cannot delete a user who has already voted."
-    #   else
-    #     @user.destroy
-    #     redirect_to admin_users_path, notice: "User deleted successfully."
-    #   end
-    # end
+    def destroy
+      @user = User.find(params[:id])
+      if @user.has_voted?
+        redirect_to admin_users_path, alert: "Cannot delete a user who has already voted."
+      else
+        @user.destroy
+        redirect_to admin_users_path, notice: "User deleted successfully."
+      end
+    end
   
     def import
       if params[:file].present?
