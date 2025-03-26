@@ -33,3 +33,9 @@
   <%= link_to "Manage Candidates", admin_candidates_path, class: "px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600" %>
   <%= link_to "View Results", admin_results_path, class: "px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600" %>
 </div>
+
+<div class="flex flex-wrap gap-4">
+  <%= link_to "Open Voting", admin_toggle_voting_path(status: "open"), method: :post, class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" %>
+  <%= link_to "Close Voting", admin_toggle_voting_path(status: "close"), method: :post, class: "px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" %>
+  <%= link_to "Reset Voting", admin_reset_voting_path, method: :post, data: { confirm: "Are you sure you want to reset voting? This will clear all votes." }, class: "px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600" %>
+</div>

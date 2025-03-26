@@ -7,7 +7,7 @@ class Admin::ResultsController < Admin::BaseController
         @results[position.id] = position.candidates.map do |candidate|
           vote_count = candidate.votes.where(status: "submitted").count
           [candidate, vote_count]
-        end
+        end.sort_by { |_, count| -count }
       end
   
       respond_to do |format|
