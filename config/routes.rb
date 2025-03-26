@@ -22,10 +22,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get "dashboard", to: "dashboard#index", as: :dashboard
-    resources :users, only: [:index, :new, :create, :edit, :update, :destroy] do
-      collection do
-        post "import", to: "users#import", as: :import
-      end
+    resources :users do
+      # collection do
+      #   post "import", to: "users#import", as: :import
+      # end
+      post :import, on: :collection
     end
     resources :positions, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :candidates, only: [:index, :new, :create, :edit, :update, :destroy]
