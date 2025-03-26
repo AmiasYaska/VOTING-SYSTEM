@@ -31,6 +31,10 @@ Devise.setup do |config|
   config.maximum_attempts = 5 # Lock account after 5 failed attempts
   config.unlock_strategy = :none # Disable automatic unlocking (no time-based or email-based unlocking)
   config.lock_strategy = :failed_attempts # Lock based on failed attempts
+
+
+  config.timeout_in = 2.minutes # Default timeout for all users including admin
+
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 
