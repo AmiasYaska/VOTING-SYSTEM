@@ -31,6 +31,9 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
+  # config.active_storage.analyzers = []
+  # config.active_storage.purge_job = "ActiveStorage::PurgeJob" # Use a string to avoid autoloading issues
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
