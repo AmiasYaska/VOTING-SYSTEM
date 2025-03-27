@@ -4,8 +4,8 @@
   <div class="space-y-4">
     <% @candidates.each do |candidate| %>
       <div class="flex items-center p-4 bg-white rounded-lg shadow-md">
-        <% if candidate.photo_url.present? %>
-          <%= image_tag candidate.photo_url, class: "w-12 h-12 rounded-full mr-4" %>
+        <% if candidate.photo.present? %>
+          <%= image_tag candidate.photo, class: "w-12 h-12 rounded-full mr-4" %>
         <% else %>
           <div class="w-12 h-12 rounded-full bg-gray-300 mr-4"></div>
         <% end %>

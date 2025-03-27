@@ -11,6 +11,7 @@
 <table class="w-full table-auto bg-white rounded-lg shadow-md">
   <thead>
     <tr class="bg-gray-100">
+      <th class="p-4 text-left">Profile</th>
       <th class="p-4 text-left">Name</th>
       <th class="p-4 text-left">Qualification</th>
       <th class="p-4 text-left">Position</th>
@@ -20,6 +21,13 @@
   <tbody>
     <% @candidates.each do |candidate| %>
       <tr class="border-t">
+      <td class="p-4">
+          <% if candidate.photo.attached? %>
+            <%= image_tag candidate.photo, class: "w-16 h-16 object-cover rounded", alt: "#{candidate.name} photo" %>
+          <% else %>
+            No photo
+          <% end %>
+        </td>
         <td class="p-4"><%= candidate.name %></td>
         <td class="p-4"><%= candidate.qualification %></td>
         <td class="p-4"><%= candidate.position.name %></td>
