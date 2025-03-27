@@ -45,6 +45,6 @@ class Admin::CandidatesController < Admin::BaseController
     private
   
     def candidate_params
-      params.require(:candidate).permit(:position_id, :name, :qualification, :photo_url)
+      params.require(:candidate).permit(:position_id, :name, :qualification, :photo)
     end
   end
