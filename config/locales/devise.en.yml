@@ -17,7 +17,7 @@ en:
       unauthenticated: "You need to sign in or sign up before continuing."
       unconfirmed: "You have to confirm your email address before continuing."
       locked: "Your account has been locked due to too many failed login attempts. Please contact an admin to unlock your account."
-      timeout: "Your session has expired due to inactivity. Please log in again to continue."
+      timeout: "Your session has expired. Please log in again to continue."
     mailer:
       confirmation_instructions:
         subject: "Confirmation instructions"
